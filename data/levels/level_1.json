@@ -1,0 +1,27 @@
+{
+  "level_name": "Green Meadow",
+  "base_hp": 100,
+  "starting_resources": {"gold": 100, "gems": 0},
+  "gold_per_second": 5,
+  "available_troops": ["soldier"],
+  "waves": [
+    {
+      "enemies": [
+        {"type": "goblin", "count": 3, "spawn_delay": 1.5, "spawn_y_range": [0.3, 0.7]}
+      ],
+      "reward": {"gold": 40, "gems": 0}
+    },
+    {
+      "enemies": [
+        {"type": "goblin", "count": 5, "spawn_delay": 1.2, "spawn_y_range": [0.2, 0.8]}
+      ],
+      "reward": {"gold": 50, "gems": 0}
+    },
+    {
+      "enemies": [
+        {"type": "goblin", "count": 8, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.8]}
+      ],
+      "reward": {"gold": 60, "gems": 0}
+    }
+  ]
+}
