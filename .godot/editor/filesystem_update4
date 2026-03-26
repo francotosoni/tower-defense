@@ -1,7 +1,0 @@
-res://scenes/battle/battle.gd
-res://scenes/battle/battlefield.gd
-res://scenes/level_select/level_select.gd
-res://scenes/main_menu/main_menu.gd
-res://scenes/battle/wave_banner.gd
-res://scenes/level_result/level_result.gd
-res://scenes/battle/hud.gd
