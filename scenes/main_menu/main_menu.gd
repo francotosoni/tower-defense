@@ -12,13 +12,15 @@ func _build_ui() -> void:
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
 
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(center)
+
 	var vbox := VBoxContainer.new()
-	vbox.set_anchors_preset(Control.PRESET_CENTER)
-	vbox.position = Vector2(810, 300)
-	vbox.custom_minimum_size = Vector2(300, 400)
+	vbox.custom_minimum_size = Vector2(300, 0)
 	vbox.add_theme_constant_override("separation", 30)
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	add_child(vbox)
+	center.add_child(vbox)
 
 	# Title
 	var title := Label.new()

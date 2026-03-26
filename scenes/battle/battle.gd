@@ -84,7 +84,7 @@ func select_troop(troop_type: String) -> void:
 func _process(_delta: float) -> void:
 	if _selected_troop != "":
 		var mouse_pos := get_viewport().get_mouse_position()
-		var in_zone := mouse_pos.x >= battlefield.DEPLOY_ZONE_START_X and mouse_pos.x <= battlefield.DEPLOY_ZONE_END_X and mouse_pos.y >= 80.0 and mouse_pos.y <= 1000.0
+		var in_zone: bool = mouse_pos.x >= battlefield.DEPLOY_ZONE_START_X and mouse_pos.x <= battlefield.DEPLOY_ZONE_END_X and mouse_pos.y >= 80.0 and mouse_pos.y <= 1000.0
 		if in_zone:
 			Input.set_default_cursor_shape(Input.CURSOR_CROSS)
 		else:
@@ -137,7 +137,7 @@ func _get_troop_cost(troop_type: String) -> Dictionary:
 
 
 func _on_wave_started(wave_number: int) -> void:
-	var total := _level_data.get("waves", []).size()
+	var total: int = _level_data.get("waves", []).size()
 	hud.update_wave_info(wave_number, total)
 	wave_banner.show_banner("Wave %d — %d enemies" % [wave_number, _count_wave_enemies(wave_number)])
 

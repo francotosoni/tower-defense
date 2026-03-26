@@ -86,8 +86,8 @@ func _build_bottom_bar() -> void:
 	style.bg_color = Color(0.1, 0.1, 0.1, 0.8)
 	bottom_bar.add_theme_stylebox_override("panel", style)
 	bottom_bar.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
-	bottom_bar.custom_minimum_size = Vector2(0, 70)
-	bottom_bar.position = Vector2(0, 1010)
+	bottom_bar.offset_top = -70.0
+	bottom_bar.offset_bottom = 0.0
 	add_child(bottom_bar)
 
 	var hbox := HBoxContainer.new()

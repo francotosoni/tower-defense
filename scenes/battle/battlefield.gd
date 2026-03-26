@@ -28,7 +28,7 @@ func _draw() -> void:
 		var gap_len := 10.0
 		var y := 0.0
 		while y < 1080.0:
-			var end_y := min(y + dash_len, 1080.0)
+			var end_y: float = min(y + dash_len, 1080.0)
 			draw_line(Vector2(DEPLOY_ZONE_END_X, y), Vector2(DEPLOY_ZONE_END_X, end_y), DEPLOY_BORDER_COLOR, 2.0)
 			y += dash_len + gap_len
 

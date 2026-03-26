@@ -8,15 +8,22 @@ var _tween: Tween
 func _ready() -> void:
 	layer = 20
 
+	var anchor := Control.new()
+	anchor.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	anchor.custom_minimum_size = Vector2(0, 250)
+	add_child(anchor)
+
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	anchor.add_child(center)
+
 	_panel = PanelContainer.new()
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.0, 0.0, 0.0, 0.7)
 	style.set_corner_radius_all(10)
 	_panel.add_theme_stylebox_override("panel", style)
-	_panel.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	_panel.position = Vector2(760, 150)
 	_panel.modulate.a = 0.0
-	add_child(_panel)
+	center.add_child(_panel)
 
 	_label = Label.new()
 	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

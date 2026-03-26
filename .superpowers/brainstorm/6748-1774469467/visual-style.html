@@ -1,0 +1,125 @@
+<h2>Estilo visual del Tower Defense</h2>
+<p class="subtitle">El estilo de arte y la perspectiva son decisiones separadas. Elegí la combinación que más te guste.</p>
+
+<h3>Perspectiva: Top-Down (vista desde arriba)</h3>
+<p class="subtitle">La más común para tower defense 2D. Los enemigos recorren un camino y las torres se colocan a los lados.</p>
+
+<div class="mockup" style="margin-bottom: 2rem;">
+  <div class="mockup-header">Perspectiva Top-Down (la que usaríamos)</div>
+  <div class="mockup-body" style="background: #1a1a2e; padding: 2rem; position: relative; height: 300px; overflow: hidden;">
+    <!-- Grid background -->
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px;"></div>
+
+    <!-- Path -->
+    <svg width="100%" height="100%" style="position:absolute;inset:0;" viewBox="0 0 600 300">
+      <path d="M 0 150 L 150 150 L 150 50 L 350 50 L 350 250 L 500 250 L 500 150 L 600 150"
+            stroke="#5c4a3a" stroke-width="30" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 0 150 L 150 150 L 150 50 L 350 50 L 350 250 L 500 250 L 500 150 L 600 150"
+            stroke="#8b7355" stroke-width="24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 8"/>
+
+      <!-- Enemies on path -->
+      <circle cx="80" cy="150" r="8" fill="#ff4444"/>
+      <circle cx="110" cy="150" r="8" fill="#ff4444"/>
+      <circle cx="150" cy="100" r="8" fill="#ff6666"/>
+
+      <!-- Towers -->
+      <rect x="100" y="170" width="20" height="20" fill="#44aaff" rx="3"/>
+      <rect x="170" y="25" width="20" height="20" fill="#44ff44" rx="3"/>
+      <rect x="330" y="70" width="20" height="20" fill="#ffaa44" rx="3"/>
+      <rect x="480" y="220" width="20" height="20" fill="#44aaff" rx="3"/>
+
+      <!-- Tower range indicator -->
+      <circle cx="110" cy="180" r="50" fill="rgba(68,170,255,0.08)" stroke="rgba(68,170,255,0.2)" stroke-width="1"/>
+    </svg>
+
+    <div style="position:absolute;bottom:10px;left:10px;display:flex;gap:15px;font-size:11px;color:#999;">
+      <span><span style="color:#ff4444;">&#9679;</span> Enemigos</span>
+      <span><span style="color:#44aaff;">&#9632;</span> Torres</span>
+      <span style="color:#8b7355;">--- Camino</span>
+    </div>
+  </div>
+</div>
+
+<h3>Ahora elegí el estilo de arte</h3>
+<p class="subtitle">Click en el que más te guste</p>
+
+<div class="cards">
+  <div class="card" data-choice="pixel" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a2e;padding:1.5rem;display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <!-- Pixel art tower -->
+      <div style="display:grid;grid-template-columns:repeat(8,6px);grid-template-rows:repeat(8,6px);gap:0;">
+        <div></div><div></div><div></div><div style="background:#44aaff"></div><div style="background:#44aaff"></div><div></div><div></div><div></div>
+        <div></div><div></div><div style="background:#44aaff"></div><div style="background:#3388dd"></div><div style="background:#3388dd"></div><div style="background:#44aaff"></div><div></div><div></div>
+        <div></div><div></div><div style="background:#44aaff"></div><div style="background:#ffdd44"></div><div style="background:#ffdd44"></div><div style="background:#44aaff"></div><div></div><div></div>
+        <div></div><div style="background:#555"></div><div style="background:#666"></div><div style="background:#666"></div><div style="background:#666"></div><div style="background:#666"></div><div style="background:#555"></div><div></div>
+        <div></div><div style="background:#555"></div><div style="background:#777"></div><div style="background:#777"></div><div style="background:#777"></div><div style="background:#777"></div><div style="background:#555"></div><div></div>
+        <div style="background:#555"></div><div style="background:#666"></div><div style="background:#777"></div><div style="background:#777"></div><div style="background:#777"></div><div style="background:#777"></div><div style="background:#666"></div><div style="background:#555"></div>
+        <div style="background:#555"></div><div style="background:#666"></div><div style="background:#666"></div><div style="background:#666"></div><div style="background:#666"></div><div style="background:#666"></div><div style="background:#666"></div><div style="background:#555"></div>
+        <div style="background:#444"></div><div style="background:#555"></div><div style="background:#555"></div><div style="background:#555"></div><div style="background:#555"></div><div style="background:#555"></div><div style="background:#555"></div><div style="background:#444"></div>
+      </div>
+      <!-- Pixel art enemy -->
+      <div style="display:grid;grid-template-columns:repeat(6,6px);grid-template-rows:repeat(6,6px);gap:0;margin-top:5px;">
+        <div></div><div style="background:#ff4444"></div><div style="background:#ff4444"></div><div style="background:#ff4444"></div><div style="background:#ff4444"></div><div></div>
+        <div style="background:#ff4444"></div><div style="background:#ff6666"></div><div style="background:#fff"></div><div style="background:#fff"></div><div style="background:#ff6666"></div><div style="background:#ff4444"></div>
+        <div style="background:#ff4444"></div><div style="background:#ff4444"></div><div style="background:#ff4444"></div><div style="background:#ff4444"></div><div style="background:#ff4444"></div><div style="background:#ff4444"></div>
+        <div></div><div style="background:#ff4444"></div><div style="background:#cc2222"></div><div style="background:#cc2222"></div><div style="background:#ff4444"></div><div></div>
+        <div></div><div style="background:#ff4444"></div><div></div><div></div><div style="background:#ff4444"></div><div></div>
+        <div style="background:#ff4444"></div><div></div><div></div><div></div><div></div><div style="background:#ff4444"></div>
+      </div>
+      <span style="color:#666;font-size:11px;margin-top:5px;">Sprites 8x8 / 16x16</span>
+    </div>
+    <div class="card-body">
+      <h3>Pixel Art / Retro</h3>
+      <p>Sprites pixelados estilo retro. Fácil de crear tus propios assets. Estética clásica y encantadora.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="cartoon" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a2e;padding:1.5rem;display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <!-- Cartoon tower -->
+      <svg width="60" height="80" viewBox="0 0 60 80">
+        <rect x="15" y="30" width="30" height="45" rx="5" fill="#4488cc" stroke="#2266aa" stroke-width="2"/>
+        <rect x="10" y="25" width="40" height="12" rx="3" fill="#5599dd" stroke="#2266aa" stroke-width="2"/>
+        <circle cx="30" cy="45" r="6" fill="#ffdd44" stroke="#ddbb22" stroke-width="1.5"/>
+        <rect x="20" y="60" width="20" height="5" rx="2" fill="#336699"/>
+        <polygon points="20,25 30,10 40,25" fill="#66bbff" stroke="#2266aa" stroke-width="2"/>
+      </svg>
+      <!-- Cartoon enemy -->
+      <svg width="40" height="40" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="15" fill="#ff5555" stroke="#cc3333" stroke-width="2"/>
+        <circle cx="14" cy="16" r="4" fill="white"/>
+        <circle cx="26" cy="16" r="4" fill="white"/>
+        <circle cx="14" cy="17" r="2" fill="#333"/>
+        <circle cx="26" cy="17" r="2" fill="#333"/>
+        <path d="M 12 28 Q 20 32 28 28" stroke="#cc3333" stroke-width="2" fill="none"/>
+      </svg>
+      <span style="color:#666;font-size:11px;margin-top:5px;">Formas suaves, colores vivos</span>
+    </div>
+    <div class="card-body">
+      <h3>Cartoon / Dibujado</h3>
+      <p>Formas redondeadas, colores vivos, bordes definidos. Estilo más moderno tipo Bloons TD o Kingdom Rush.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="minimal" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a2e;padding:1.5rem;display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <!-- Minimal tower -->
+      <svg width="60" height="80" viewBox="0 0 60 80">
+        <rect x="18" y="30" width="24" height="40" fill="none" stroke="#44aaff" stroke-width="2"/>
+        <line x1="30" y1="30" x2="30" y2="10" stroke="#44aaff" stroke-width="2"/>
+        <circle cx="30" cy="7" r="3" fill="#44aaff"/>
+        <circle cx="30" cy="50" r="5" fill="none" stroke="#ffdd44" stroke-width="1.5"/>
+      </svg>
+      <!-- Minimal enemy -->
+      <svg width="40" height="40" viewBox="0 0 40 40">
+        <polygon points="20,5 35,35 5,35" fill="none" stroke="#ff5555" stroke-width="2"/>
+        <circle cx="20" cy="25" r="3" fill="#ff5555"/>
+      </svg>
+      <span style="color:#666;font-size:11px;margin-top:5px;">Formas geométricas simples</span>
+    </div>
+    <div class="card-body">
+      <h3>Minimalista / Geométrico</h3>
+      <p>Formas geométricas simples, sin necesidad de crear sprites. Foco en gameplay, no en arte. Rápido de prototipar.</p>
+    </div>
+  </div>
+</div>

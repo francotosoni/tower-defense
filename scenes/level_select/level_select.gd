@@ -26,12 +26,14 @@ func _build_ui() -> void:
 	add_child(title)
 
 	# Level buttons in a horizontal row
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(center)
+
 	var hbox := HBoxContainer.new()
-	hbox.set_anchors_preset(Control.PRESET_CENTER)
-	hbox.position = Vector2(560, 440)
 	hbox.add_theme_constant_override("separation", 40)
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	add_child(hbox)
+	center.add_child(hbox)
 
 	for i in range(1, LEVEL_COUNT + 1):
 		var level_data := _load_level_data(i)
@@ -93,7 +95,7 @@ func _load_level_data(level: int) -> Dictionary:
 
 func _on_level_selected(level: int) -> void:
 	GameManager.current_level = level
-	var battle_scene := load("res://scenes/battle/battle.tscn").instantiate()
+	var battle_scene = load("res://scenes/battle/battle.tscn").instantiate()
 	get_tree().root.add_child(battle_scene)
 
 	var level_data := _load_level_data(level)
@@ -102,9 +104,13 @@ func _on_level_selected(level: int) -> void:
 	battle_scene.level_won.connect(_on_level_won.bind(level, battle_scene))
 	battle_scene.level_lost.connect(_on_level_lost.bind(level, battle_scene))
 
-	# Add level result overlay
-	var result_scene := load("res://scenes/level_result/level_result.tscn").instantiate()
-	battle_scene.add_child(result_scene)
+	# Add level result overlay (wrapped in CanvasLayer so Control renders properly over Node2D)
+	var result_layer := CanvasLayer.new()
+	result_layer.name = "ResultLayer"
+	result_layer.layer = 30
+	battle_scene.add_child(result_layer)
+	var result_scene = load("res://scenes/level_result/level_result.tscn").instantiate()
+	result_layer.add_child(result_scene)
 
 	# Connect result navigation
 	result_scene.next_level_requested.connect(func():
@@ -127,13 +133,13 @@ func _on_level_selected(level: int) -> void:
 
 func _on_level_won(level: int, battle_scene: Node) -> void:
 	GameManager.complete_level(level)
-	var result := battle_scene.find_child("LevelResult", true, false)
+	var result = battle_scene.find_child("LevelResult", true, false)
 	if result:
 		result.show_victory()
 
 
-func _on_level_lost(level: int, battle_scene: Node) -> void:
-	var result := battle_scene.find_child("LevelResult", true, false)
+func _on_level_lost(_level: int, battle_scene: Node) -> void:
+	var result = battle_scene.find_child("LevelResult", true, false)
 	if result:
 		result.show_defeat()
 
