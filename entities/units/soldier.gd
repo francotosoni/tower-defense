@@ -12,29 +12,57 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	var r := unit_radius
-	# Body (armored blue)
-	draw_circle(Vector2.ZERO, r, unit_color)
-	draw_arc(Vector2.ZERO, r, 0, TAU, 32, unit_color.darkened(0.4), 2.0)
-	# Helmet visor
-	draw_rect(Rect2(-r * 0.5, -r * 0.35, r * 1.0, r * 0.3), Color(0.15, 0.25, 0.6))
-	# Eyes through visor
-	draw_circle(Vector2(-3, -3), 2.0, Color.WHITE)
-	draw_circle(Vector2(3, -3), 2.0, Color.WHITE)
-	# Sword (right side)
-	draw_line(Vector2(r * 0.6, -r * 0.2), Vector2(r * 1.4, -r * 0.8), Color(0.75, 0.75, 0.8), 2.5)
-	draw_line(Vector2(r * 0.8, -r * 0.1), Vector2(r * 0.8, -r * 0.5), Color(0.5, 0.35, 0.15), 2.0)  # crossguard
-	# Shield (left side)
-	draw_circle(Vector2(-r * 0.7, 0), r * 0.45, Color(0.3, 0.3, 0.7))
-	draw_circle(Vector2(-r * 0.7, 0), r * 0.25, Color(0.6, 0.6, 0.1))
-	# HP bar
+	var bounce := sin(_anim_time) * 2.0
+	var squash := 1.0 + sin(_anim_time * 2.0) * 0.05 if _is_moving else 1.0
+	var oy := bounce  # vertical offset for bounce
+
+	# Shadow
+	draw_circle(Vector2(0, 13), 8, Color(0, 0, 0, 0.15))
+
+	# Body (small blue armored torso)
+	draw_rect(Rect2(-7, -2 + oy, 14, 12), Color(0.2, 0.4, 0.9))
+	draw_rect(Rect2(-5, 0 + oy, 10, 7), Color(0.25, 0.5, 1.0))
+
+	# Shield (floating left)
+	var shield_y := -2 + sin(_anim_time + 1.0) * 1.5
+	var shield_pts := PackedVector2Array([
+		Vector2(-17, -5 + shield_y), Vector2(-12, -8 + shield_y),
+		Vector2(-10, 0 + shield_y), Vector2(-12, 6 + shield_y),
+		Vector2(-17, 4 + shield_y)])
+	draw_colored_polygon(shield_pts, Color(0.25, 0.3, 0.75))
+	draw_circle(Vector2(-14, 0 + shield_y), 2.5, Color(0.7, 0.65, 0.15))
+
+	# Sword (floating right)
+	var sword_y := -2 + sin(_anim_time + 2.0) * 1.5
+	draw_line(Vector2(13, 4 + sword_y), Vector2(13, -14 + sword_y), Color(0.78, 0.8, 0.85), 2.5)
+	draw_line(Vector2(10, -2 + sword_y), Vector2(16, -2 + sword_y), Color(0.55, 0.4, 0.2), 2.0)
+
+	# Head (big, brotato style)
+	var head_y := -14.0 + oy * 1.2
+	draw_circle(Vector2(0, head_y), 11 * squash, Color(0.2, 0.4, 0.9))
+	# Helmet
+	draw_arc(Vector2(0, head_y - 1), 11.5, PI + 0.3, TAU - 0.3, 20, Color(0.3, 0.35, 0.72), 3.0)
+	var helmet_top := PackedVector2Array([
+		Vector2(-8, head_y - 4), Vector2(0, head_y - 16), Vector2(8, head_y - 4)])
+	draw_colored_polygon(helmet_top, Color(0.3, 0.38, 0.75))
+	# Visor
+	draw_rect(Rect2(-8, head_y - 3, 16, 5), Color(0.1, 0.15, 0.4))
+	# Big eyes (through visor)
+	draw_circle(Vector2(-4, head_y - 1), 3.0, Color.WHITE)
+	draw_circle(Vector2(4, head_y - 1), 3.0, Color.WHITE)
+	draw_circle(Vector2(-3, head_y - 1), 1.8, Color(0.1, 0.1, 0.3))
+	draw_circle(Vector2(5, head_y - 1), 1.8, Color(0.1, 0.1, 0.3))
+	# Eye shine
+	draw_circle(Vector2(-2, head_y - 2), 0.8, Color.WHITE)
+	draw_circle(Vector2(6, head_y - 2), 0.8, Color.WHITE)
+
 	_draw_hp_bar()
 
 
 func _draw_hp_bar() -> void:
-	var bar_w := unit_radius * 2.2
-	var bar_h := 4.0
-	var bar_y := -unit_radius - 12.0
+	var bar_w := 24.0
+	var bar_h := 3.0
+	var bar_y := -30.0
 	var hp_ratio := float(hp) / float(max_hp)
 	draw_rect(Rect2(-bar_w / 2, bar_y, bar_w, bar_h), Color(0.2, 0.2, 0.2))
 	draw_rect(Rect2(-bar_w / 2, bar_y, bar_w * hp_ratio, bar_h), Color.GREEN_YELLOW)

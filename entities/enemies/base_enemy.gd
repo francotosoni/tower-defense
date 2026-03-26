@@ -19,6 +19,8 @@ var hp: int
 var attack_timer: float = 0.0
 var target: Node2D = null
 var _base_node: Node2D = null
+var _anim_time: float = 0.0
+var _is_moving: bool = false
 
 
 func _ready() -> void:
@@ -38,13 +40,19 @@ func _create_collision_shape() -> void:
 
 
 func _draw() -> void:
-	# Body
-	draw_circle(Vector2.ZERO, enemy_radius, enemy_color)
-	draw_arc(Vector2.ZERO, enemy_radius, 0, TAU, 32, enemy_color.darkened(0.3), 2.0)
-	# HP bar
-	var bar_w := enemy_radius * 2.2
-	var bar_h := 4.0
-	var bar_y := -enemy_radius - 10.0
+	var bounce := sin(_anim_time) * 2.0
+	var oy := bounce
+	draw_circle(Vector2(0, 12), 7, Color(0, 0, 0, 0.15))
+	draw_rect(Rect2(-6, -1 + oy, 12, 11), enemy_color)
+	var head_y := -12.0 + oy * 1.2
+	draw_circle(Vector2(0, head_y), 10, enemy_color)
+	draw_circle(Vector2(-3, head_y), 2.5, Color(0.9, 0.2, 0.1))
+	draw_circle(Vector2(3, head_y), 2.5, Color(0.9, 0.2, 0.1))
+	draw_circle(Vector2(-2, head_y), 1.5, Color(0.1, 0.05, 0.05))
+	draw_circle(Vector2(4, head_y), 1.5, Color(0.1, 0.05, 0.05))
+	var bar_w := 20.0
+	var bar_h := 3.0
+	var bar_y := -26.0
 	var hp_ratio := float(hp) / float(max_hp)
 	draw_rect(Rect2(-bar_w / 2, bar_y, bar_w, bar_h), Color(0.2, 0.2, 0.2))
 	draw_rect(Rect2(-bar_w / 2, bar_y, bar_w * hp_ratio, bar_h), Color.ORANGE_RED)
@@ -61,11 +69,19 @@ func _physics_process(delta: float) -> void:
 		var dist := global_position.distance_to(target.global_position)
 		if dist <= attack_range:
 			_do_attack()
+			_is_moving = false
 		else:
 			_move_toward(target, speed_mult)
+			_is_moving = true
 	else:
 		# No aggro target — move toward the base
 		_move_toward_base(speed_mult)
+		_is_moving = true
+
+	if _is_moving:
+		_anim_time += delta * speed_mult * 10.0
+	else:
+		_anim_time *= 0.9
 
 	queue_redraw()
 

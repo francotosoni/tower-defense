@@ -34,31 +34,54 @@ func _perform_attack() -> void:
 
 
 func _draw() -> void:
-	var r := unit_radius
-	# Body (green ranger)
-	draw_circle(Vector2.ZERO, r, unit_color)
-	draw_arc(Vector2.ZERO, r, 0, TAU, 32, unit_color.darkened(0.3), 2.0)
-	# Hood (triangle on top)
-	var hood := PackedVector2Array([Vector2(-r * 0.5, -r * 0.3), Vector2(0, -r * 1.3), Vector2(r * 0.5, -r * 0.3)])
-	draw_colored_polygon(hood, Color(0.08, 0.5, 0.2))
-	# Eyes
-	draw_circle(Vector2(-3, -2), 2.0, Color.WHITE)
-	draw_circle(Vector2(3, -2), 2.0, Color.WHITE)
-	draw_circle(Vector2(-3, -2), 1.0, Color(0.1, 0.1, 0.1))
-	draw_circle(Vector2(3, -2), 1.0, Color(0.1, 0.1, 0.1))
-	# Bow
-	draw_arc(Vector2(r * 0.5, 0), r * 0.8, -PI / 2.5, PI / 2.5, 16, Color(0.55, 0.35, 0.1), 2.5)
-	draw_line(Vector2(r * 0.5, -r * 0.6), Vector2(r * 0.5, r * 0.6), Color(0.9, 0.85, 0.7), 1.0)  # string
-	# Quiver on back
-	draw_rect(Rect2(-r * 0.9, -r * 0.6, 5, r * 1.0), Color(0.45, 0.28, 0.1))
-	# HP bar
+	var bounce := sin(_anim_time) * 2.0
+	var squash := 1.0 + sin(_anim_time * 2.0) * 0.05 if _is_moving else 1.0
+	var oy := bounce
+
+	# Shadow
+	draw_circle(Vector2(0, 12), 7, Color(0, 0, 0, 0.15))
+
+	# Body (green tunic)
+	draw_rect(Rect2(-6, -2 + oy, 12, 12), Color(0.1, 0.55, 0.25))
+	draw_rect(Rect2(-5, 0 + oy, 10, 8), Color(0.12, 0.6, 0.3))
+	# Belt
+	draw_rect(Rect2(-6, 6 + oy, 12, 2), Color(0.4, 0.25, 0.1))
+
+	# Quiver (behind, left side)
+	draw_rect(Rect2(-10, -8 + oy, 4, 14), Color(0.45, 0.28, 0.1))
+	draw_line(Vector2(-9, -9 + oy), Vector2(-9, -6 + oy), Color(0.6, 0.5, 0.3), 1.0)
+	draw_line(Vector2(-7, -10 + oy), Vector2(-7, -6 + oy), Color(0.6, 0.5, 0.3), 1.0)
+
+	# Bow (floating right)
+	var bow_y := sin(_anim_time + 1.5) * 1.5
+	draw_arc(Vector2(13, 0 + bow_y), 10, -PI / 2.5, PI / 2.5, 16, Color(0.55, 0.35, 0.1), 2.5)
+	draw_line(Vector2(13, -7 + bow_y), Vector2(13, 7 + bow_y), Color(0.9, 0.85, 0.7), 1.0)
+
+	# Head (big, brotato style)
+	var head_y := -14.0 + oy * 1.2
+	draw_circle(Vector2(0, head_y), 10 * squash, Color(0.85, 0.72, 0.55))
+	# Hood
+	draw_arc(Vector2(0, head_y - 2), 11, PI + 0.2, TAU - 0.2, 20, Color(0.08, 0.45, 0.18), 4.0)
+	var hood_pts := PackedVector2Array([
+		Vector2(-7, head_y - 6), Vector2(0, head_y - 18), Vector2(7, head_y - 6)])
+	draw_colored_polygon(hood_pts, Color(0.08, 0.45, 0.18))
+	# Big eyes
+	draw_circle(Vector2(-4, head_y), 3.0, Color.WHITE)
+	draw_circle(Vector2(4, head_y), 3.0, Color.WHITE)
+	draw_circle(Vector2(-3, head_y), 1.8, Color(0.15, 0.4, 0.15))
+	draw_circle(Vector2(5, head_y), 1.8, Color(0.15, 0.4, 0.15))
+	draw_circle(Vector2(-2, head_y - 1), 0.8, Color.WHITE)
+	draw_circle(Vector2(6, head_y - 1), 0.8, Color.WHITE)
+	# Slight smile
+	draw_arc(Vector2(0, head_y + 3), 3.0, 0.2, PI - 0.2, 8, Color(0.5, 0.3, 0.2), 1.0)
+
 	_draw_hp_bar()
 
 
 func _draw_hp_bar() -> void:
-	var bar_w := unit_radius * 2.2
-	var bar_h := 4.0
-	var bar_y := -unit_radius - 14.0
+	var bar_w := 22.0
+	var bar_h := 3.0
+	var bar_y := -30.0
 	var hp_ratio := float(hp) / float(max_hp)
 	draw_rect(Rect2(-bar_w / 2, bar_y, bar_w, bar_h), Color(0.2, 0.2, 0.2))
 	draw_rect(Rect2(-bar_w / 2, bar_y, bar_w * hp_ratio, bar_h), Color.GREEN_YELLOW)
