@@ -16,7 +16,6 @@ var base_max_hp: int = 100
 
 # --- Level state ---
 var current_level: int = 1
-var gold_per_second: float = 5.0
 var available_troops: Array[String] = []
 var game_speed: float = 1.0
 var is_battle_active: bool = false
@@ -24,8 +23,8 @@ var is_battle_active: bool = false
 # --- Campaign ---
 var campaign_progress: Dictionary = {}
 
-# --- Gold generation ---
-var _gold_accumulator: float = 0.0
+# --- Buffs ---
+var active_buffs: Dictionary = {}
 
 const SAVE_PATH = "user://save_data.json"
 
@@ -34,26 +33,16 @@ func _ready() -> void:
 	load_progress()
 
 
-func _process(delta: float) -> void:
-	if not is_battle_active:
-		return
-	_gold_accumulator += delta * gold_per_second * game_speed
-	while _gold_accumulator >= 1.0:
-		_gold_accumulator -= 1.0
-		add_gold(1)
-
-
 func setup_level(level_data: Dictionary) -> void:
+	reset_buffs()
 	var starting = level_data.get("starting_resources", {})
 	gold = int(starting.get("gold", 100))
 	gems = int(starting.get("gems", 0))
 	base_hp = int(level_data.get("base_hp", 100))
 	base_max_hp = base_hp
-	gold_per_second = float(level_data.get("gold_per_second", 5.0))
 	available_troops = []
 	for t in level_data.get("available_troops", ["soldier"]):
 		available_troops.append(str(t))
-	_gold_accumulator = 0.0
 	is_battle_active = true
 	game_speed = 1.0
 	gold_changed.emit(gold)
@@ -85,6 +74,15 @@ func spend_gems(amount: int) -> bool:
 		gems_changed.emit(gems)
 		return true
 	return false
+
+
+func reset_buffs() -> void:
+	active_buffs = {}
+
+
+func heal_base(amount: int) -> void:
+	base_hp = mini(base_hp + amount, base_max_hp)
+	base_hp_changed.emit(base_hp)
 
 
 func damage_base(amount: int) -> void:
