@@ -176,7 +176,7 @@ func _get_troop_cost(troop_type: String) -> Dictionary:
 		"mage":
 			return {"gems": 2}
 		"miner":
-			return {"currency": "gold", "amount": 15}
+			return {"gold": 15}
 	return {}
 
 
