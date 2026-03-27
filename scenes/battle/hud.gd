@@ -17,6 +17,7 @@ const TROOP_INFO := {
 	"soldier": {"name": "Soldier", "cost": "30G", "color": Color(0.2, 0.4, 0.9)},
 	"archer": {"name": "Archer", "cost": "50G", "color": Color(0.1, 0.7, 0.3)},
 	"mage": {"name": "Mage", "cost": "2 Gem", "color": Color(0.6, 0.2, 0.8)},
+	"miner": {"name": "Miner", "cost": "15G", "color": Color(0.8, 0.6, 0.2)},
 }
 
 
@@ -96,7 +97,7 @@ func _build_bottom_bar() -> void:
 	bottom_bar.add_child(hbox)
 
 	# Troop buttons
-	for troop_type in ["soldier", "archer", "mage"]:
+	for troop_type in ["soldier", "archer", "mage", "miner"]:
 		var btn := Button.new()
 		btn.name = troop_type.capitalize() + "Btn"
 		var info: Dictionary = TROOP_INFO[troop_type]
