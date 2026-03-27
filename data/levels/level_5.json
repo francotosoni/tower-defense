@@ -1,47 +1,54 @@
 {
   "level_name": "The Last Stand",
-  "base_hp": 120,
-  "starting_resources": {"gold": 100, "gems": 2},
-  "gold_per_second": 6,
-  "available_troops": ["soldier", "archer", "mage"],
+  "base_hp": 80,
+  "starting_resources": {"gold": 45, "gems": 1},
+  "gold_per_second": 0,
+  "available_troops": ["soldier", "archer", "mage", "miner"],
+  "resource_nodes": [
+    {"type": "silver", "x": 300, "y": 500, "charges": 4},
+    {"type": "gold", "x": 550, "y": 280, "charges": 3},
+    {"type": "gold", "x": 580, "y": 800, "charges": 3},
+    {"type": "gem", "x": 1000, "y": 400, "charges": 3},
+    {"type": "gem", "x": 1100, "y": 650, "charges": 2}
+  ],
   "waves": [
     {
       "enemies": [
-        {"type": "goblin", "count": 10, "spawn_delay": 0.5, "spawn_y_range": [0.2, 0.8]},
-        {"type": "goblin_archer", "count": 4, "spawn_delay": 1.0, "spawn_y_range": [0.3, 0.7]}
+        {"type": "goblin", "count": 10, "spawn_delay": 0.6, "spawn_y_range": [0.1, 0.9]},
+        {"type": "goblin_archer", "count": 4, "spawn_delay": 1.2, "spawn_y_range": [0.3, 0.7]}
       ],
-      "reward": {"gold": 50, "gems": 1}
+      "reward": {"gold": 25, "gems": 0}
     },
     {
       "enemies": [
-        {"type": "orc", "count": 5, "spawn_delay": 1.5, "spawn_y_range": [0.3, 0.7]},
+        {"type": "orc", "count": 5, "spawn_delay": 1.2, "spawn_y_range": [0.2, 0.8]},
         {"type": "goblin_archer", "count": 5, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.8]}
       ],
-      "reward": {"gold": 60, "gems": 1}
+      "reward": {"gold": 30, "gems": 0}
     },
     {
       "enemies": [
-        {"type": "goblin", "count": 12, "spawn_delay": 0.4, "spawn_y_range": [0.2, 0.8]},
-        {"type": "orc", "count": 4, "spawn_delay": 1.2, "spawn_y_range": [0.3, 0.7]},
+        {"type": "goblin", "count": 12, "spawn_delay": 0.5, "spawn_y_range": [0.1, 0.9]},
+        {"type": "orc", "count": 4, "spawn_delay": 1.5, "spawn_y_range": [0.3, 0.7]},
         {"type": "goblin_archer", "count": 6, "spawn_delay": 0.8, "spawn_y_range": [0.2, 0.8]}
       ],
-      "reward": {"gold": 70, "gems": 2}
+      "reward": {"gold": 40, "gems": 1}
     },
     {
       "enemies": [
-        {"type": "orc", "count": 6, "spawn_delay": 1.0, "spawn_y_range": [0.3, 0.7]},
-        {"type": "goblin", "count": 15, "spawn_delay": 0.3, "spawn_y_range": [0.1, 0.9]},
-        {"type": "goblin_archer", "count": 8, "spawn_delay": 0.6, "spawn_y_range": [0.2, 0.8]}
+        {"type": "orc", "count": 6, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.8]},
+        {"type": "goblin_archer", "count": 8, "spawn_delay": 0.7, "spawn_y_range": [0.1, 0.9]},
+        {"type": "goblin", "count": 8, "spawn_delay": 0.6, "spawn_y_range": [0.2, 0.8]}
       ],
-      "reward": {"gold": 100, "gems": 3}
+      "reward": {"gold": 40, "gems": 1}
     },
     {
       "enemies": [
-        {"type": "orc", "count": 8, "spawn_delay": 0.8, "spawn_y_range": [0.2, 0.8]},
-        {"type": "goblin", "count": 20, "spawn_delay": 0.3, "spawn_y_range": [0.1, 0.9]},
-        {"type": "goblin_archer", "count": 10, "spawn_delay": 0.5, "spawn_y_range": [0.1, 0.9]}
+        {"type": "orc", "count": 8, "spawn_delay": 0.8, "spawn_y_range": [0.1, 0.9]},
+        {"type": "goblin_archer", "count": 8, "spawn_delay": 0.7, "spawn_y_range": [0.1, 0.9]},
+        {"type": "goblin", "count": 15, "spawn_delay": 0.4, "spawn_y_range": [0.1, 0.9]}
       ],
-      "reward": {"gold": 150, "gems": 5}
+      "reward": {"gold": 0, "gems": 0}
     }
   ]
 }

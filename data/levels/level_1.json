@@ -1,27 +1,29 @@
 {
   "level_name": "Green Meadow",
   "base_hp": 100,
-  "starting_resources": {"gold": 100, "gems": 0},
-  "gold_per_second": 5,
-  "available_troops": ["soldier"],
+  "starting_resources": {"gold": 60, "gems": 0},
+  "gold_per_second": 0,
+  "available_troops": ["soldier", "miner"],
+  "resource_nodes": [
+    {"type": "silver", "x": 350, "y": 400, "charges": 6},
+    {"type": "silver", "x": 300, "y": 650, "charges": 6},
+    {"type": "gold", "x": 550, "y": 540, "charges": 4}
+  ],
   "waves": [
     {
-      "enemies": [
-        {"type": "goblin", "count": 3, "spawn_delay": 1.5, "spawn_y_range": [0.3, 0.7]}
-      ],
-      "reward": {"gold": 40, "gems": 0}
+      "enemies": [{"type": "goblin", "count": 3, "spawn_delay": 1.5, "spawn_y_range": [0.3, 0.7]}],
+      "reward": {"gold": 20, "gems": 0}
+    },
+    {
+      "enemies": [{"type": "goblin", "count": 5, "spawn_delay": 1.2, "spawn_y_range": [0.2, 0.8]}],
+      "reward": {"gold": 25, "gems": 0}
     },
     {
       "enemies": [
-        {"type": "goblin", "count": 5, "spawn_delay": 1.2, "spawn_y_range": [0.2, 0.8]}
+        {"type": "goblin", "count": 4, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.5]},
+        {"type": "goblin", "count": 3, "spawn_delay": 1.0, "spawn_y_range": [0.5, 0.8]}
       ],
-      "reward": {"gold": 50, "gems": 0}
-    },
-    {
-      "enemies": [
-        {"type": "goblin", "count": 8, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.8]}
-      ],
-      "reward": {"gold": 60, "gems": 0}
+      "reward": {"gold": 30, "gems": 0}
     }
   ]
 }

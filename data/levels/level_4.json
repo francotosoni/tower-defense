@@ -1,38 +1,46 @@
 {
-  "level_name": "Rocky Pass",
+  "level_name": "Dragon's Hoard",
   "base_hp": 100,
-  "starting_resources": {"gold": 80, "gems": 1},
-  "gold_per_second": 5,
-  "available_troops": ["soldier", "archer", "mage"],
+  "starting_resources": {"gold": 50, "gems": 1},
+  "gold_per_second": 0,
+  "available_troops": ["soldier", "archer", "mage", "miner"],
+  "resource_nodes": [
+    {"type": "silver", "x": 260, "y": 300, "charges": 5},
+    {"type": "silver", "x": 280, "y": 780, "charges": 5},
+    {"type": "gold", "x": 520, "y": 450, "charges": 4},
+    {"type": "gold", "x": 600, "y": 650, "charges": 3},
+    {"type": "gem", "x": 850, "y": 350, "charges": 3},
+    {"type": "gem", "x": 950, "y": 700, "charges": 2}
+  ],
   "waves": [
     {
       "enemies": [
-        {"type": "orc", "count": 3, "spawn_delay": 2.0, "spawn_y_range": [0.3, 0.7]},
-        {"type": "goblin_archer", "count": 3, "spawn_delay": 1.5, "spawn_y_range": [0.2, 0.8]}
+        {"type": "goblin", "count": 8, "spawn_delay": 0.8, "spawn_y_range": [0.2, 0.8]},
+        {"type": "goblin_archer", "count": 3, "spawn_delay": 1.5, "spawn_y_range": [0.3, 0.5]}
+      ],
+      "reward": {"gold": 30, "gems": 0}
+    },
+    {
+      "enemies": [
+        {"type": "orc", "count": 4, "spawn_delay": 1.5, "spawn_y_range": [0.3, 0.7]},
+        {"type": "goblin", "count": 6, "spawn_delay": 0.8, "spawn_y_range": [0.2, 0.8]}
+      ],
+      "reward": {"gold": 35, "gems": 0}
+    },
+    {
+      "enemies": [
+        {"type": "goblin_archer", "count": 6, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.8]},
+        {"type": "orc", "count": 4, "spawn_delay": 1.2, "spawn_y_range": [0.3, 0.7]}
+      ],
+      "reward": {"gold": 40, "gems": 1}
+    },
+    {
+      "enemies": [
+        {"type": "orc", "count": 6, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.8]},
+        {"type": "goblin_archer", "count": 6, "spawn_delay": 0.8, "spawn_y_range": [0.2, 0.8]},
+        {"type": "goblin", "count": 10, "spawn_delay": 0.6, "spawn_y_range": [0.1, 0.9]}
       ],
       "reward": {"gold": 50, "gems": 1}
-    },
-    {
-      "enemies": [
-        {"type": "goblin", "count": 10, "spawn_delay": 0.6, "spawn_y_range": [0.2, 0.8]}
-      ],
-      "reward": {"gold": 40, "gems": 0}
-    },
-    {
-      "enemies": [
-        {"type": "orc", "count": 4, "spawn_delay": 1.5, "spawn_y_range": [0.4, 0.6]},
-        {"type": "goblin", "count": 6, "spawn_delay": 0.8, "spawn_y_range": [0.2, 0.8]},
-        {"type": "goblin_archer", "count": 4, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.8]}
-      ],
-      "reward": {"gold": 60, "gems": 1}
-    },
-    {
-      "enemies": [
-        {"type": "orc", "count": 5, "spawn_delay": 1.2, "spawn_y_range": [0.3, 0.7]},
-        {"type": "goblin", "count": 8, "spawn_delay": 0.6, "spawn_y_range": [0.2, 0.8]},
-        {"type": "goblin_archer", "count": 5, "spawn_delay": 1.0, "spawn_y_range": [0.2, 0.8]}
-      ],
-      "reward": {"gold": 80, "gems": 2}
     }
   ]
 }
