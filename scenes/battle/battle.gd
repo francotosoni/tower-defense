@@ -41,6 +41,10 @@ func _ready() -> void:
 	projectiles.name = "Projectiles"
 	battlefield.add_child(projectiles)
 
+	var resource_container := Node2D.new()
+	resource_container.name = "ResourceNodes"
+	battlefield.add_child(resource_container)
+
 	# Wave manager
 	wave_manager = Node.new()
 	wave_manager.name = "WaveManager"
@@ -71,9 +75,35 @@ func start_level(level_data: Dictionary) -> void:
 	_level_data = level_data
 	GameManager.setup_level(level_data)
 	wave_manager.setup(level_data.get("waves", []), enemy_units)
+	_spawn_resource_nodes(level_data)
 	hud.update_available_troops(GameManager.available_troops)
 	hud.set_level_name(level_data.get("level_name", ""))
 	wave_manager.start_next_wave()
+
+
+func _spawn_resource_nodes(level_data: Dictionary) -> void:
+	var nodes_data: Array = level_data.get("resource_nodes", [])
+	var resource_scene = load("res://entities/resources/resource_node.tscn")
+	var container = find_child("ResourceNodes", true, false)
+	if not container:
+		return
+	for node_data in nodes_data:
+		var node = resource_scene.instantiate()
+		var type_str: String = node_data.get("type", "gold")
+		match type_str:
+			"silver":
+				node.resource_type = ResourceNode.ResourceType.SILVER
+			"gold":
+				node.resource_type = ResourceNode.ResourceType.GOLD
+			"gem":
+				node.resource_type = ResourceNode.ResourceType.GEM
+		var pos_x: float = node_data.get("x", 400)
+		var pos_y: float = node_data.get("y", 500)
+		node.position = Vector2(pos_x, pos_y)
+		if node_data.has("charges"):
+			node.max_charges = node_data["charges"]
+		node.add_to_group("resource_nodes")
+		container.add_child(node)
 
 
 func select_troop(troop_type: String) -> void:
@@ -133,6 +163,8 @@ func _get_troop_cost(troop_type: String) -> Dictionary:
 			return {"gold": 50}
 		"mage":
 			return {"gems": 2}
+		"miner":
+			return {"currency": "gold", "amount": 15}
 	return {}
 
 
