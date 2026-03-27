@@ -4,6 +4,7 @@ signal wave_started(wave_number: int)
 signal wave_completed(wave_number: int)
 signal all_waves_cleared
 
+var paused: bool = false
 var _waves: Array = []
 var _current_wave: int = 0
 var _enemies_alive: int = 0
@@ -23,7 +24,8 @@ const ENEMY_SCENES := {
 
 func _process(delta: float) -> void:
 	if _waiting_for_next_wave:
-		_inter_wave_timer -= delta * GameManager.game_speed
+		if not paused:
+			_inter_wave_timer -= delta * GameManager.game_speed
 		if _inter_wave_timer <= 0.0:
 			_waiting_for_next_wave = false
 			start_next_wave()

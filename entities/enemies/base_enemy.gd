@@ -156,6 +156,7 @@ func take_damage(amount: int) -> void:
 
 
 func _die() -> void:
-	GameManager.add_gold(bounty_gold)
+	var bounty_mult: float = GameManager.active_buffs.get("bounty_boost", 1.0)
+	GameManager.add_gold(int(bounty_gold * bounty_mult))
 	enemy_died.emit(self, bounty_gold)
 	queue_free()

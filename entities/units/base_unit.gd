@@ -20,6 +20,11 @@ var _is_moving: bool = false
 
 func _ready() -> void:
 	hp = max_hp
+	# Apply HP buff from shop
+	var hp_buff: float = GameManager.active_buffs.get("hp_boost", 1.0)
+	if hp_buff != 1.0:
+		max_hp = int(float(max_hp) * hp_buff)
+		hp = max_hp
 	add_to_group("player_units")
 	collision_layer = 1
 	collision_mask = 6
@@ -94,7 +99,7 @@ func _find_target() -> Node2D:
 
 func _move_toward(t: Node2D, scaled_delta: float) -> void:
 	var dir := (t.global_position - global_position).normalized()
-	velocity = dir * move_speed * GameManager.game_speed
+	velocity = dir * move_speed * GameManager.game_speed * GameManager.active_buffs.get("speed_boost", 1.0)
 	move_and_slide()
 
 
@@ -103,12 +108,13 @@ func _do_attack() -> void:
 	move_and_slide()
 	if attack_timer <= 0.0:
 		_perform_attack()
-		attack_timer = attack_speed
+		attack_timer = attack_speed / GameManager.active_buffs.get("attack_speed_boost", 1.0)
 
 
 func _perform_attack() -> void:
 	if target and is_instance_valid(target) and target.has_method("take_damage"):
-		target.take_damage(damage)
+		var dmg := int(damage * GameManager.active_buffs.get("damage_boost", 1.0))
+		target.take_damage(dmg)
 
 
 func take_damage(amount: int) -> void:

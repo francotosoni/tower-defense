@@ -5,6 +5,8 @@ signal level_lost
 
 var _selected_troop: String = ""
 var _level_data: Dictionary = {}
+var _wave_shop
+var _total_waves: int = 0
 
 var battlefield: Node2D
 var player_base: Node2D
@@ -64,15 +66,25 @@ func _ready() -> void:
 	wave_banner.set_script(load("res://scenes/battle/wave_banner.gd"))
 	add_child(wave_banner)
 
+	# Wave shop
+	var shop_script = load("res://scenes/battle/wave_shop.gd")
+	_wave_shop = CanvasLayer.new()
+	_wave_shop.set_script(shop_script)
+	_wave_shop.name = "WaveShop"
+	add_child(_wave_shop)
+
 	# Connect signals
 	GameManager.base_destroyed.connect(_on_base_destroyed)
 	wave_manager.all_waves_cleared.connect(_on_all_waves_cleared)
 	wave_manager.wave_completed.connect(_on_wave_completed)
+	wave_manager.wave_completed.connect(_on_wave_completed_shop)
 	wave_manager.wave_started.connect(_on_wave_started)
+	_wave_shop.shop_closed.connect(func(): wave_manager.paused = false)
 
 
 func start_level(level_data: Dictionary) -> void:
 	_level_data = level_data
+	_total_waves = level_data.get("waves", []).size()
 	GameManager.setup_level(level_data)
 	wave_manager.setup(level_data.get("waves", []), enemy_units)
 	_spawn_resource_nodes(level_data)
@@ -183,6 +195,12 @@ func _count_wave_enemies(wave_number: int) -> int:
 			total += int(group.get("count", 0))
 		return total
 	return 0
+
+
+func _on_wave_completed_shop(wave_num: int) -> void:
+	if wave_num < _total_waves:
+		wave_manager.paused = true
+		_wave_shop.show_shop()
 
 
 func _on_wave_completed(wave_number: int) -> void:
